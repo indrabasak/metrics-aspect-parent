@@ -1,3 +1,5 @@
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Build Status][travis-badge]][travis-badge-url]
+
 Metrics Aspect
 ==========================
 TODO
@@ -129,3 +131,6 @@ private class MyClass {
    }
 }
 ``` 
+
+[travis-badge]: https://travis-ci.org/indrabasak/metrics-aspect-parent.svg?branch=master
+[travis-badge-url]: https://travis-ci.org/indrabasak/metrics-aspect-parent
