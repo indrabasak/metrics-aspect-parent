@@ -1,0 +1,36 @@
+project:
+    artifactId: book
+    name: book
+    version: 1.0.0-SNAPSHOT
+    description: Demo project for info endpoint
+
+# For Spring Actuator /info endpoint
+info:
+    artifact: ${project.artifactId}
+    name: ${project.name}
+    description: ${project.description}
+    version: ${project.version}
+
+# use a HTTP port 8080
+server:
+  port: 8080
+
+datasource:
+  validationQuery: SELECT 1
+  initialSize: 1
+  maxActive: 3
+  testWhileIdle: true
+  testOnBorrow: true
+
+jpa:
+  show-sql: true
+  format_sql: true
+  properties:
+    org:
+      hibernate:
+        flushMode: AUTO
+
+metrics:
+  report:
+    http: true
+    jmx: true
