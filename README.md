@@ -1,8 +1,10 @@
-**iovmetric-aspect** 
+Metrics Aspect
+==========================
+TODO
 
-** Usage **
+# Usage 
 
-*** Timed Annotation ***
+# Timed Annotation
 
 `@Timed` annotation is used to generate `timer` metrics. A timer aggregates timing durations and provides duration
 and throughput statistics. A `@Timed` annotation can be used at `class` or `method` level.
@@ -66,7 +68,7 @@ It will generate metrics having the following name when method `myMethod` is exe
 timer.myMetric
 ```
 
-*** Metered Annotation ***
+## Metered Annotation
 
 `@Metered` annotation is used to generate `meter` metrics. A meter provides throughput statistics. Like `@Timed`
 annotation, a `@Metered` annotation can be used at `class` or `method` level. Similarly you can use `name` and `absolute`
@@ -110,7 +112,7 @@ exception.com.example.MyClass.myMetric
 exception.myMetric
 ```
 
-*** Exception Metered Annotation ***
+## Exception Metered Annotation
 
 `@ExceptionMetered` annotation is used to generate `meter` metrics when exception occurs. A `@ExceptionMetered` 
 annotation can be used at `class` or `method` level. Similarly you can use `name` and `absolute`
@@ -127,23 +129,3 @@ private class MyClass {
    }
 }
 ``` 
-
-*** Core Metric Annotation ***
-
-`@CoreMetric` annotation is an utility annotation which generates 4 different kinds of metrics:
-* `Concurrent Request`: Number of requests per time period. Generates meter metrics.
-* `Stall Count`: If the response time takes longer than a threshold. By default the, the threshold is set at 3 sec. You
-can change it by modifying `metric.stall.threshold` property. Generates meter metrics.
-* `Errors Per Interval`: Number of exceptions encountered per time period. Generates meter metrics.
-* `Response Time`: The average response time per time period. Generates timer metrics.
-
-```java
-package com.example;
-
-@CoreMetric
-private class MyClass {
-    public String myMethod(String name) {
-        return "Hello " + name;
-   }
-}
-```
