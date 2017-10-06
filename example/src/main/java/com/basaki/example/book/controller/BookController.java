@@ -39,7 +39,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 @Api(value = "Book API",
-        description = "Book API",
         produces = "application/json", tags = {"API"})
 @Timed
 @Metered

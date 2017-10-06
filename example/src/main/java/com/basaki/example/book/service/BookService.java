@@ -194,7 +194,7 @@ public class BookService {
                     "No books found with the search criteria!");
         }
 
-        return entities.stream().map(e -> mapEntityToModel(e)).collect(
+        return entities.stream().map(this::mapEntityToModel).collect(
                 Collectors.toList());
     }
 }

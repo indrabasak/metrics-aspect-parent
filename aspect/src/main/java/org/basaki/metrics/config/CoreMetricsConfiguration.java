@@ -1,33 +1,21 @@
 package org.basaki.metrics.config;
 
-import com.codahale.metrics.JmxReporter;
 import com.codahale.metrics.Metric;
-import com.codahale.metrics.MetricFilter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.SharedMetricRegistries;
-import com.codahale.metrics.graphite.Graphite;
-import com.codahale.metrics.graphite.GraphiteReporter;
-import com.codahale.metrics.graphite.GraphiteSender;
 import com.codahale.metrics.health.HealthCheckRegistry;
+import com.codahale.metrics.jvm.BufferPoolMetricSet;
 import com.codahale.metrics.jvm.FileDescriptorRatioGauge;
 import com.codahale.metrics.jvm.GarbageCollectorMetricSet;
 import com.codahale.metrics.jvm.MemoryUsageGaugeSet;
 import com.codahale.metrics.jvm.ThreadStatesGaugeSet;
-import com.codahale.metrics.servlets.AdminServlet;
 import com.codahale.metrics.servlets.HealthCheckServlet;
 import com.codahale.metrics.servlets.MetricsServlet;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.UnknownHostException;
-import java.util.concurrent.TimeUnit;
+import java.lang.management.ManagementFactory;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -64,6 +52,9 @@ public class CoreMetricsConfiguration {
         registerMetric(registry, new ThreadStatesGaugeSet(), "jvm",
                 "thread-states");
         registerMetric(registry, new FileDescriptorRatioGauge(), "jvm", "fd",
+                "usage");
+        registerMetric(registry, new BufferPoolMetricSet(
+                        ManagementFactory.getPlatformMBeanServer()), "jvm", "buffers",
                 "usage");
 
         return registry;
@@ -106,7 +97,7 @@ public class CoreMetricsConfiguration {
 
             @Override
             public void contextDestroyed(ServletContextEvent sc) {
-
+                // Do nothing
             }
         };
     }

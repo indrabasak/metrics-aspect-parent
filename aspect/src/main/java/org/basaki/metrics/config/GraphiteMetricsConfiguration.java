@@ -24,6 +24,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnProperty(name = {"metrics.report.graphite"})
 @AutoConfigureAfter({CoreMetricsConfiguration.class})
 @Slf4j
+@SuppressWarnings({"squid:S2095"})
 public class GraphiteMetricsConfiguration {
 
     @Value("${graphite.host:localhost}")
