@@ -1,4 +1,8 @@
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Build Status][travis-badge]][travis-badge-url]
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) 
+[![Build Status][travis-badge]][travis-badge-url]
+[![Quality Gate][sonarqube-badge]][sonarqube-badge-url] 
+[![Technical debt ratio][technical-debt-ratio-badge]][technical-debt-ratio-badge-url] 
+[![Coverage][coverage-badge]][coverage-badge-url]
 
 Metrics Aspect
 ==========================
@@ -134,3 +138,12 @@ private class MyClass {
 
 [travis-badge]: https://travis-ci.org/indrabasak/metrics-aspect-parent.svg?branch=master
 [travis-badge-url]: https://travis-ci.org/indrabasak/metrics-aspect-parent
+
+[sonarqube-badge]: https://sonarcloud.io/api/project_badges/measure?project=com.basaki%3Ametrics-aspect-parent&metric=alert_status
+[sonarqube-badge-url]: https://sonarcloud.io/dashboard/index/com.basaki:metrics-aspect-parent
+
+[technical-debt-ratio-badge]: https://sonarcloud.io/api/project_badges/measure?project=com.basaki%3Ametrics-aspect-parent&metric=sqale_index
+[technical-debt-ratio-badge-url]: https://sonarcloud.io/dashboard/index/com.basaki:metrics-aspect-parent
+
+[coverage-badge]: https://sonarcloud.io/api/project_badges/measure?project=com.basaki%3Ametrics-aspect-parent&metric=coverage
+[coverage-badge-url]: https://sonarcloud.io/dashboard/index/com.basaki:metrics-aspect-parent

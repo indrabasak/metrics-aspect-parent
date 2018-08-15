@@ -8,6 +8,7 @@ import com.basaki.example.book.model.Book;
 import com.basaki.example.book.model.BookRequest;
 import com.basaki.example.book.model.Genre;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
@@ -62,13 +63,14 @@ public class BookService {
     }
 
     public Book read(UUID id) {
-        BookEntity entity = repo.findOne(id);
+        Optional<BookEntity> optional = repo.findById(id);
 
-        if (entity == null) {
+        if (!optional.isPresent()) {
             throw new DataNotFoundException(
                     "Book with id " + id + " not found!");
         }
 
+        BookEntity entity = optional.get();
 
         Book book = mapper.map(entity, Book.class);
         Author author = new Author();
@@ -127,13 +129,13 @@ public class BookService {
 
     @Transactional
     public Book update(UUID id, BookRequest request) {
-        BookEntity entity = repo.findOne(id);
-
-        if (entity == null) {
+        Optional<BookEntity> optional = repo.findById(id);
+        if (!optional.isPresent()) {
             throw new DataNotFoundException(
                     "Book with id " + id + " not found!");
         }
 
+        BookEntity entity = optional.get();
         validate(request);
 
         mapper.map(request, BookEntity.class);
@@ -153,7 +155,7 @@ public class BookService {
     @Transactional
     public void delete(UUID id) {
         try {
-            repo.delete(id);
+            repo.deleteById(id);
         } catch (Exception e) {
             throw new DataNotFoundException(
                     "Book with id " + id + " not found!");

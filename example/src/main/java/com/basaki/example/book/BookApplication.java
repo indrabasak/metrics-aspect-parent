@@ -1,4 +1,4 @@
-package com.basaki.example.book.boot;
+package com.basaki.example.book;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -15,15 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication
 @EnableAutoConfiguration
-@ComponentScan(basePackages = {
-        "com.basaki.example.book.config",
-        "com.basaki.example.book.controller",
-        "com.basaki.example.book.data.entity",
-        "com.basaki.example.book.data.repository",
-        "com.basaki.example.book.error",
-        "com.basaki.example.book.model",
-        "com.basaki.example.book.service",
-        "com.basaki.example.book.swagger"})
+@ComponentScan(basePackages = {"com.basaki.example.book"})
 public class BookApplication {
     public static void main(String[] args) {
         SpringApplication.run(BookApplication.class, args);
