@@ -18,10 +18,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -65,7 +67,7 @@ public class BookController {
     @ApiResponses({
             @ApiResponse(code = 201, response = Book.class,
                     message = "Book created successfully")})
-    @RequestMapping(method = RequestMethod.POST, value = BOOK_URL,
+    @PostMapping(value = BOOK_URL,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
@@ -77,7 +79,7 @@ public class BookController {
             value = "Retrieves a book by ID.",
             notes = "Requires a book identifier",
             response = Book.class)
-    @RequestMapping(method = RequestMethod.GET, value = BOOK_BY_ID_URL,
+    @GetMapping(value = BOOK_BY_ID_URL,
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public Book read(@ApiParam(value = "Book ID", required = true)
@@ -89,7 +91,7 @@ public class BookController {
             value = "Retrieves all the books associated with the search string.",
             notes = "In absence of any parameter, it will return all the books.",
             response = Book.class, responseContainer = "List")
-    @RequestMapping(method = RequestMethod.GET, value = BOOK_URL,
+    @GetMapping(value = BOOK_URL,
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public List<Book> readAll(
@@ -107,7 +109,7 @@ public class BookController {
     @ApiResponses({
             @ApiResponse(code = 201, response = Book.class,
                     message = "Updated a book created successfully")})
-    @RequestMapping(method = RequestMethod.PUT, value = BOOK_BY_ID_URL,
+    @PutMapping(value = BOOK_BY_ID_URL,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
@@ -118,7 +120,7 @@ public class BookController {
     }
 
     @ApiOperation(value = "Deletes a book by ID.")
-    @RequestMapping(method = RequestMethod.DELETE, value = BOOK_BY_ID_URL)
+    @DeleteMapping(value = BOOK_BY_ID_URL)
     @ResponseBody
     public void delete(@ApiParam(value = "Book ID", required = true)
     @PathVariable("id") UUID id) {
@@ -126,7 +128,7 @@ public class BookController {
     }
 
     @ApiOperation(value = "Deletes all books.")
-    @RequestMapping(method = RequestMethod.DELETE, value = BOOK_URL)
+    @DeleteMapping(value = BOOK_URL)
     @ResponseBody
     public void deleteAll() {
         service.deleteAll();
@@ -136,7 +138,7 @@ public class BookController {
             value = "Retrieves a list of distinct publisher based on partial publisher name search.",
             notes = "Requires a partial publisher name",
             response = String.class, responseContainer = "List")
-    @RequestMapping(method = RequestMethod.GET, value = PUBLISHER_URL,
+    @GetMapping(value = PUBLISHER_URL,
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public List<String> getPublisher(

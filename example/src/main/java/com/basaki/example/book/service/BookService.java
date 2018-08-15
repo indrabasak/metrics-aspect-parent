@@ -34,6 +34,10 @@ import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatc
 @Slf4j
 public class BookService {
 
+    private static final String BOOK_WITH_ID = "Book with id ";
+
+    private static final String NOT_FOUND = " not found!";
+
     private final BookRepository repo;
 
     private final Mapper mapper;
@@ -67,7 +71,7 @@ public class BookService {
 
         if (!optional.isPresent()) {
             throw new DataNotFoundException(
-                    "Book with id " + id + " not found!");
+                    BOOK_WITH_ID + id + NOT_FOUND);
         }
 
         BookEntity entity = optional.get();
@@ -132,7 +136,7 @@ public class BookService {
         Optional<BookEntity> optional = repo.findById(id);
         if (!optional.isPresent()) {
             throw new DataNotFoundException(
-                    "Book with id " + id + " not found!");
+                    BOOK_WITH_ID + id + NOT_FOUND);
         }
 
         BookEntity entity = optional.get();
@@ -158,7 +162,7 @@ public class BookService {
             repo.deleteById(id);
         } catch (Exception e) {
             throw new DataNotFoundException(
-                    "Book with id " + id + " not found!");
+                    BOOK_WITH_ID + id + NOT_FOUND);
         }
     }
 
