@@ -5,20 +5,20 @@
     <parent>
         <groupId>org.basaki.metrics</groupId>
         <artifactId>metrics-aspect-parent</artifactId>
-        <version>1.0.0</version>
+        <version>1.1.0</version>
     </parent>
 
     <groupId>org.basaki.metrics</groupId>
     <artifactId>metrics-aspect-example</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <name>Metrics Aspect Example</name>
 
     <properties>
         <commons.dbcp.version>1.4</commons.dbcp.version>
-        <jackson.version>2.8.8</jackson.version>
+        <jackson.version>2.9.8</jackson.version>
         <lombok.version>1.16.16</lombok.version>
         <maven-compiler-plugin-version>2.3.2</maven-compiler-plugin-version>
-        <spring.boot.version>1.5.3.RELEASE</spring.boot.version>
+        <spring.boot.version>1.5.20.RELEASE</spring.boot.version>
         <swagger.version>2.6.1</swagger.version>
     </properties>
 
