@@ -8,18 +8,22 @@
         <version>2.0.0</version>
     </parent>
 
-    <groupId>org.basaki.metrics</groupId>
     <artifactId>metrics-aspect-example</artifactId>
     <version>2.0.0</version>
     <name>Metrics Aspect Example</name>
 
     <properties>
         <commons.dbcp.version>1.4</commons.dbcp.version>
-        <jackson.version>2.9.6</jackson.version>
-        <lombok.version>1.16.16</lombok.version>
+        <dozer.version>5.5.1</dozer.version>
+        <hamcrest.version>2.1</hamcrest.version>
+        <hsqldb.version>2.5.0</hsqldb.version>
+        <jackson.version>2.9.9</jackson.version>
+        <junit.version>4.12</junit.version>
+        <lombok.version>1.18.8</lombok.version>
         <maven-compiler-plugin-version>2.3.2</maven-compiler-plugin-version>
-        <spring.boot.version>2.0.4.RELEASE</spring.boot.version>
-        <swagger.version>2.6.1</swagger.version>
+        <rest-assured.version>4.0.0</rest-assured.version>
+        <spring.boot.version>2.1.5.RELEASE</spring.boot.version>
+        <swagger.version>2.9.2</swagger.version>
     </properties>
 
 
@@ -79,7 +83,7 @@
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
-            <version>2.3.4</version>
+            <version>${hsqldb.version}</version>
         </dependency>
 
 
@@ -92,7 +96,7 @@
         <dependency>
             <groupId>net.sf.dozer</groupId>
             <artifactId>dozer</artifactId>
-            <version>5.4.0</version>
+            <version>${dozer.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
@@ -129,23 +133,24 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>3.0.0</version>
+            <version>${rest-assured.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>spring-mock-mvc</artifactId>
-            <version>3.0.0</version>
+            <version>${rest-assured.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-core</artifactId>
-            <version>1.3</version>
+            <version>${hamcrest.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -157,7 +162,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <fork>true</fork>
-                    <mainClass>com.basaki.example.book.BookApplication</mainClass>
+                    <mainClass>org.basaki.example.book.BookApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
