@@ -12,7 +12,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Created by indra.basak on 4/28/17.
+ * {@code JmxMetricsConfiguration} is the configuration class for registering
+ * Jmx reporter.
+ * <p>
+ *
+ * @author Indra Basak
+ * @since 04/28/17
  */
 @Configuration
 @ConditionalOnProperty(name = {"metrics.report.jmx"}, matchIfMissing = true)

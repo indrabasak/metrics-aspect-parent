@@ -23,7 +23,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Primary;
 
 /**
- * {@code MetricConfiguration} is the configuration class for enabling
+ * {@code CoreMetricConfiguration} is the configuration class for enabling
  * metrics. It registers JMX, Graphite, and HTTP reporters.
  * <p>
  *
@@ -32,8 +32,7 @@ import org.springframework.context.annotation.Primary;
  */
 @Configuration
 @EnableAspectJAutoProxy
-@ComponentScan(basePackages = {
-        "org.basaki.metrics.aspect"})
+@ComponentScan(basePackages = {"org.basaki.metrics.aspect"})
 @Slf4j
 public class CoreMetricsConfiguration {
 

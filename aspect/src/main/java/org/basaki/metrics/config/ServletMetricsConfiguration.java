@@ -1,6 +1,8 @@
 package org.basaki.metrics.config;
 
 import com.codahale.metrics.servlets.AdminServlet;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -10,12 +12,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Created by indra.basak on 4/28/17.
+ * {@code ServletMetricsConfiguration} is the configuration class for
+ * registering HTTP reporter.
+ * <p>
+ *
+ * @author Indra Basak
+ * @since 04/28/17
  */
 @Configuration
 @ConditionalOnProperty(name = {"metrics.report.http"})
 @AutoConfigureAfter({CoreMetricsConfiguration.class})
 @Slf4j
+@Getter
+@Setter
 public class ServletMetricsConfiguration {
 
     @Value("${metrics.report.http.url:/metrics/*}")
