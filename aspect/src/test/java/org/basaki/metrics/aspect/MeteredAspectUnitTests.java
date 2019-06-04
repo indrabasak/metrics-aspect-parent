@@ -3,17 +3,25 @@ package org.basaki.metrics.aspect;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.annotation.Metered;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.Signature;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
+import static org.basaki.metrics.aspect.MeteredAspect.METRIC_PREFIX;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
@@ -24,12 +32,10 @@ import static org.mockito.Mockito.when;
  * @author Indra Basak
  * @since 4/26/17
  */
+@RunWith(JUnitParamsRunner.class)
 public class MeteredAspectUnitTests {
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
-
-    @Mock
-    private Signature signature;
 
     @Mock
     private ProceedingJoinPoint pointcut;
@@ -42,18 +48,24 @@ public class MeteredAspectUnitTests {
 
     private String methodName = "length";
 
-    private String customName = "testMetric";
-
     @Before
     public void setUp() {
         registry = new MetricRegistry();
         aspect = new MeteredAspect(registry);
     }
 
-
-    private void test(Metered annotation, String metricName) throws Throwable {
+    @Test
+    @Parameters
+    public void testGenerateMetric(Metered annotation, Metered methodAnnotation,
+            String metricName) throws Throwable {
+        MethodSignature signature = mock(MethodSignature.class);
         when(signature.getDeclaringType()).thenReturn(clazz);
         when(signature.getName()).thenReturn(methodName);
+        when(pointcut.getSignature()).thenReturn(signature);
+
+        Method method = mock(Method.class);
+        when(method.getAnnotation(any())).thenReturn(methodAnnotation);
+        when(signature.getMethod()).thenReturn(method);
         when(pointcut.getSignature()).thenReturn(signature);
 
         aspect.generateMetric(pointcut, annotation);
@@ -63,37 +75,31 @@ public class MeteredAspectUnitTests {
                 (registry.meter(metricName).getMeanRate() > 0));
     }
 
-    @Test
-    public void testGenerateMetric() throws Throwable {
-        Metered annotation = MeteredAnnotation.getInstance(null, false);
-        String metricName =
-                MeteredAspect.METRIC_PREFIX + clazz.getCanonicalName()
-                        + "." + methodName;
-        test(annotation, metricName);
-    }
+    public Iterable<Object[]> parametersForTestGenerateMetric() {
+        String customName = "testMetric";
 
+        return Arrays.asList(new Object[][]{
+                {MeteredAnnotation.getInstance(null, false), null,
+                        METRIC_PREFIX + clazz.getCanonicalName() + "." + methodName},
+                {null, MeteredAnnotation.getInstance(null, false),
+                        METRIC_PREFIX + clazz.getCanonicalName() + "." + methodName},
 
-    @Test
-    public void testGenerateMetricWithNameAndAbsoluteFalse() throws Throwable {
-        Metered annotation = MeteredAnnotation.getInstance(customName, false);
-        String metricName =
-                MeteredAspect.METRIC_PREFIX + clazz.getCanonicalName()
-                        + "." + customName;
-        test(annotation, metricName);
-    }
+                {MeteredAnnotation.getInstance(customName, false), null,
+                        METRIC_PREFIX + clazz.getCanonicalName() + "." + customName},
+                {null, MeteredAnnotation.getInstance(customName, false),
+                        METRIC_PREFIX + clazz.getCanonicalName() + "." + customName},
 
-    @Test
-    public void testGenerateMetricWithNameAndAbsoluteTrue() throws Throwable {
-        Metered annotation = MeteredAnnotation.getInstance(customName, true);
-        String metricName =
-                MeteredAspect.METRIC_PREFIX + customName;
-        test(annotation, metricName);
+                {MeteredAnnotation.getInstance(customName, true), null,
+                        METRIC_PREFIX + customName},
+                {null, MeteredAnnotation.getInstance(customName, true),
+                        METRIC_PREFIX + customName},
+        });
     }
 
     public static class MeteredAnnotation {
-        public static Metered getInstance(final String name,
+        static Metered getInstance(final String name,
                 final boolean absolute) {
-            Metered instance = new Metered() {
+            return new Metered() {
 
                 @Override
                 public Class<? extends Annotation> annotationType() {
@@ -110,8 +116,6 @@ public class MeteredAspectUnitTests {
                     return absolute;
                 }
             };
-
-            return instance;
         }
     }
 }
