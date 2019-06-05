@@ -34,9 +34,9 @@ public class SwaggerConfiguration {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("token")
+                .groupName("book")
                 .select()
-                .apis(basePackage("com.basaki.example.book.controller"))
+                .apis(basePackage("org.basaki.example.book.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo("Book API", "API for Books"));

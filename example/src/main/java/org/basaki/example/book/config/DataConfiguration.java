@@ -24,12 +24,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @since 4/11/17
  */
 @Configuration
-@EnableJpaRepositories(basePackages = {"com.basaki.example.book.data.repository"})
+@EnableJpaRepositories(basePackages = {"org.basaki.example.book.data.repository"})
 @EnableTransactionManagement
 public class DataConfiguration {
 
     private static final String[] ENTITY_PACKAGES = {
-            "com.basaki.example.book.data.entity"
+            "org.basaki.example.book.data.entity"
     };
 
     @Setter
