@@ -125,14 +125,14 @@
             </snapshots>
         </repository>
         <repository>
-            <id>maven.oracle.com</id>
+            <id>central-maven</id>
             <releases>
                 <enabled>true</enabled>
             </releases>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-            <url>https://maven.oracle.com</url>
+            <url>https://repo.maven.apache.org/maven2m</url>
             <layout>default</layout>
         </repository>
     </repositories>
