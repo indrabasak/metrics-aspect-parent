@@ -13,7 +13,7 @@ Spring Boot.
 
 # Usage 
 
-# Timed Annotation
+## Timed Annotation
 
 `@Timed` annotation is used to generate `timer` metrics. A timer aggregates timing 
 durations and provides duration and throughput statistics. A `@Timed` annotation 
@@ -125,6 +125,32 @@ Similary, the customize metrics will have the following format:
 exception.com.example.MyClass.myMetric
 exception.myMetric
 ```
+
+## Custom JMX Metrics
+There are cases where `Dropwizard` do not provide metrics you're interested. 
+Some of this metrics are published as JMX MBeans such as Jetty or Tomcat 
+thread pools. This project includes a custom `JMXGaugeSet` class which provides
+the ability to publish a JMX MBean as Dropwizard metrics.
+
+Here's an example of publishing the Tomcat threadpool JMX MBean having `ObjectName`
+of `Tomcat:type=ThreadPool,name="http-nio-8080"`, as Dropwizard metrics:
+
+```java
+@Configuration
+public class MyConfiguration {
+
+    @Autowired
+    private MetricRegistry registry;
+
+    @PostConstruct
+    public void init() {
+        registry.register(
+                MetricRegistry.name("tomcat", "threadpool", "http-nio-8080"),
+                new JmxGaugeSet("Tomcat:type=ThreadPool,name=\"http-nio-8080\""));
+    }
+}
+```
+
 
 [travis-badge]: https://travis-ci.org/indrabasak/metrics-aspect-parent.svg?branch=master
 [travis-badge-url]: https://travis-ci.org/indrabasak/metrics-aspect-parent
