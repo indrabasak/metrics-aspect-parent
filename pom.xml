@@ -132,7 +132,7 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-            <url>https://repo.maven.apache.org/maven2m</url>
+            <url>https://repo.maven.apache.org/maven2</url>
             <layout>default</layout>
         </repository>
     </repositories>
