@@ -1,10 +1,11 @@
 package org.basaki.metrics.config;
 
-import com.codahale.metrics.MetricFilter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.jmx.JmxReporter;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
+import org.basaki.metrics.filter.CustomMetricFilter;
+import org.basaki.metrics.filter.MetricFilterProperties;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -34,12 +35,15 @@ public class JmxMetricsConfiguration {
      */
     @Bean
     public JmxReporter registerJmxReporter(
-            @Qualifier("registry") MetricRegistry registry) {
+            @Qualifier("registry") MetricRegistry registry,
+            MetricFilterProperties properties) {
+        CustomMetricFilter filter = new CustomMetricFilter(properties);
+
         final JmxReporter reporter =
                 JmxReporter.forRegistry(registry).convertRatesTo(
                         TimeUnit.SECONDS).convertDurationsTo(
                         TimeUnit.MILLISECONDS)
-                        .filter(MetricFilter.ALL)
+                        .filter(filter)
                         .build();
         reporter.start();
         log.debug("Registered JMX metrics reporter.");

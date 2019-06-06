@@ -23,14 +23,12 @@ import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-//import static org.mockito.Matchers.any;
 
 /**
  * {@code JmxGaugeSetUnitTests} is the unit test class for {@code JmxGaugeSet}.
+ * <p>
  *
  * @author Indra Basak
- * @code JmxGaugeSet}.
- * <p>
  * @since 06/04/19
  */
 @RunWith(PowerMockRunner.class)

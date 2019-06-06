@@ -151,6 +151,28 @@ public class MyConfiguration {
 }
 ```
 
+## Metric Fiter
+There may be cases when you want to filter metrics based on name. In order to 
+filter metrics add a YAML configuration file either in classpath or file 
+system and specify the name of the file in property `metrics.filter`.
+
+```yaml
+metrics:
+  filter: metric-filter.yml
+```
+
+Metrics you would like to show up as JMX MBeans are specified in a YAML file, 
+named `metric-filter.yml` (same names as specified in the `metrics.filter` property.
+```yaml
+filter:
+  properties:
+    "[jvm.memory.pools]":
+      type: memory
+    "[jvm.memory.heap]":
+      type: memory
+    "[timer.org.basaki.example.book.controller.BookController.read]":
+      type: gauge
+```
 
 [travis-badge]: https://travis-ci.org/indrabasak/metrics-aspect-parent.svg?branch=master
 [travis-badge-url]: https://travis-ci.org/indrabasak/metrics-aspect-parent

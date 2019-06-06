@@ -22,7 +22,7 @@ public class JmxMetricsConfigurationUnitTests {
         JmxMetricsConfiguration config = new JmxMetricsConfiguration();
 
         final MetricRegistry registry = mock(MetricRegistry.class);
-        JmxReporter reporter = config.registerJmxReporter(registry);
+        JmxReporter reporter = config.registerJmxReporter(registry, null);
         assertNotNull(reporter);
     }
 }
