@@ -31,6 +31,7 @@ jpa:
         flushMode: AUTO
 
 metrics:
+  filter: metric-filter.yml
   report:
     http: true
     jmx: true

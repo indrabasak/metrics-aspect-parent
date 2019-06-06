@@ -1,0 +1,8 @@
+filter:
+  properties:
+    "[jvm.memory.pools]":
+      type: memory
+    "[jvm.memory.heap]":
+      type: memory
+    "[timer.org.basaki.example.book.controller.BookController.read]":
+      type: gauge

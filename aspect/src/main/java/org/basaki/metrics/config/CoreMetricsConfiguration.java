@@ -5,8 +5,10 @@ import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.SharedMetricRegistries;
 import com.codahale.metrics.health.HealthCheckRegistry;
 import com.codahale.metrics.jvm.BufferPoolMetricSet;
+import com.codahale.metrics.jvm.ClassLoadingGaugeSet;
 import com.codahale.metrics.jvm.FileDescriptorRatioGauge;
 import com.codahale.metrics.jvm.GarbageCollectorMetricSet;
+import com.codahale.metrics.jvm.JvmAttributeGaugeSet;
 import com.codahale.metrics.jvm.MemoryUsageGaugeSet;
 import com.codahale.metrics.jvm.ThreadStatesGaugeSet;
 import com.codahale.metrics.servlets.HealthCheckServlet;
@@ -15,6 +17,7 @@ import java.lang.management.ManagementFactory;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import lombok.extern.slf4j.Slf4j;
+import org.basaki.metrics.set.JmxGaugeSet;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -23,7 +26,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Primary;
 
 /**
- * {@code MetricConfiguration} is the configuration class for enabling
+ * {@code CoreMetricConfiguration} is the configuration class for enabling
  * metrics. It registers JMX, Graphite, and HTTP reporters.
  * <p>
  *
@@ -32,8 +35,7 @@ import org.springframework.context.annotation.Primary;
  */
 @Configuration
 @EnableAspectJAutoProxy
-@ComponentScan(basePackages = {
-        "org.basaki.metrics.aspect"})
+@ComponentScan(basePackages = {"org.basaki.metrics.aspect"})
 @Slf4j
 public class CoreMetricsConfiguration {
 
@@ -56,6 +58,13 @@ public class CoreMetricsConfiguration {
         registerMetric(registry, new BufferPoolMetricSet(
                         ManagementFactory.getPlatformMBeanServer()), "jvm", "buffers",
                 "usage");
+        registerMetric(registry, new JvmAttributeGaugeSet(), "jvm", "runtime");
+        registerMetric(registry, new ClassLoadingGaugeSet(), "jvm", "classes");
+
+        // JMX metrics
+        registerMetric(registry,
+                new JmxGaugeSet("java.nio:type=BufferPool,name=direct"),
+                "java", "nio", "bufferpool", "direct");
 
         return registry;
     }

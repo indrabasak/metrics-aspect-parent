@@ -9,6 +9,8 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,12 +20,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Created by indra.basak on 4/28/17.
+ * {@code GraphiteMetricsConfiguration} is the configuration class for
+ * registering Graphite reporter.
+ * <p>
+ *
+ * @author Indra Basak
+ * @since 04/28/17
  */
 @Configuration
 @ConditionalOnProperty(name = {"metrics.report.graphite"})
 @AutoConfigureAfter({CoreMetricsConfiguration.class})
 @Slf4j
+@Getter
+@Setter
 @SuppressWarnings({"squid:S2095"})
 public class GraphiteMetricsConfiguration {
 
@@ -35,6 +44,7 @@ public class GraphiteMetricsConfiguration {
 
     @Value("${graphite.group:metrics}")
     private String group;
+
     /**
      * Registers a reporter which publishes metrics to a Carbon server by TCP.
      *

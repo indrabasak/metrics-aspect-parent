@@ -2,4 +2,5 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   org.basaki.metrics.config.CoreMetricsConfiguration,\
   org.basaki.metrics.config.JmxMetricsConfiguration,\
   org.basaki.metrics.config.ServletMetricsConfiguration,\
-  org.basaki.metrics.config.GraphiteMetricsConfiguration
+  org.basaki.metrics.config.GraphiteMetricsConfiguration,\
+  org.basaki.metrics.filter.MetricFilterProperties
